@@ -9,8 +9,6 @@ public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 		pointer = 1;
 	}
 
-	// TODO constructor por copia?? No creo que haga falta
-
 	@Override
 	public int getPointer() {
 		return pointer;
@@ -18,18 +16,21 @@ public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 
 	@Override
 	public void moveNext() {
-		pointer++;
+		if (getPointer() <= this.size) {
+			pointer++;
+		}
 	}
 
 	@Override
 	public void movePrev() {
-		pointer--;
+		if (getPointer() > 1) {
+			pointer--;
+		}
 	}
 
 	@Override
 	public void moveTo(int pos) {
 		pointer = pos;
-
 	}
 
 	@Override
@@ -58,6 +59,7 @@ public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 		this.size++;
 	}
 
+
 	@Override
 	public void remove() {
 		if(pointer==1){
@@ -79,7 +81,7 @@ public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 	public E getElem() {
 		NodeSequence node = getNode(pointer);
 		return node.getValue();
-		}
+	}
 
 	@Override
 	public void setElem(E elem) {
