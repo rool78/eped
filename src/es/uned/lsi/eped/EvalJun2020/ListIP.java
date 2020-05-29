@@ -37,7 +37,7 @@ public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 	public void insert(E elem) {
 		NodeSequence newNode = new NodeSequence(elem);
 		if (pointer == 1) {
-			if(this.firstNode != null) {
+			if (this.firstNode != null) {
 				this.firstNode.setPrevious(newNode);
 			}
 			newNode.setNext(this.firstNode);
@@ -46,12 +46,12 @@ public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 			NodeSequence nodeInPointer = getNode(pointer);
 
 			newNode.setNext(nodeInPointer);
-			if(nodeInPointer != null) {
+			if (nodeInPointer != null) {
 				nodeInPointer.getPrevious().setNext(newNode);
 				newNode.setPrevious(nodeInPointer.getPrevious());
 				nodeInPointer.setPrevious(newNode);
-			}else {
-				getNode(pointer -1).setNext(newNode);
+			} else {
+				getNode(pointer - 1).setNext(newNode);
 				newNode.setPrevious(getNode(pointer - 1));
 			}
 		}
@@ -59,19 +59,18 @@ public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 		this.size++;
 	}
 
-
 	@Override
 	public void remove() {
-		if(pointer==1){
+		if (pointer == 1) {
 			this.firstNode = this.firstNode.getNext();
-			if(this.firstNode != null) {
+			if (this.firstNode != null) {
 				this.firstNode.setPrevious(null);
 			}
-		}else{
+		} else {
 			NodeSequence nodeToRemove = getNode(pointer);
-			if(nodeToRemove != null) {
-			nodeToRemove.getPrevious().setNext(nodeToRemove.getNext());
-			nodeToRemove.getNext().setPrevious(nodeToRemove.getPrevious());
+			if (nodeToRemove != null) {
+				nodeToRemove.getPrevious().setNext(nodeToRemove.getNext());
+				nodeToRemove.getNext().setPrevious(nodeToRemove.getPrevious());
 			}
 		}
 		this.size--;
