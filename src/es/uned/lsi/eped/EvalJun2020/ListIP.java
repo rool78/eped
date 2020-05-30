@@ -2,6 +2,7 @@ package es.uned.lsi.eped.EvalJun2020;
 
 public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 
+	private NodeSequence nodeInPointer;
 	private int pointer;
 
 	public ListIP() {
@@ -18,12 +19,18 @@ public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 	public void moveNext() {
 		if (getPointer() <= this.size) {
 			pointer++;
+			if (nodeInPointer.getNext() != null) {
+				nodeInPointer = nodeInPointer.getNext();
+			}
 		}
 	}
 
 	@Override
 	public void movePrev() {
 		if (getPointer() > 1) {
+			if (nodeInPointer.getPrevious() != null && getPointer() <= this.size) {
+				nodeInPointer = nodeInPointer.getPrevious();
+			}
 			pointer--;
 		}
 	}
@@ -31,61 +38,91 @@ public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 	@Override
 	public void moveTo(int pos) {
 		pointer = pos;
+		if (pos > this.size) {
+			nodeInPointer = getNode(pos - 1);
+		} else {
+			nodeInPointer = getNode(pos);
+		}
 	}
 
 	@Override
 	public void insert(E elem) {
 		NodeSequence newNode = new NodeSequence(elem);
-		if (pointer == 1) {
-			if (this.firstNode != null) {
-				this.firstNode.setPrevious(newNode);
-			}
-			newNode.setNext(this.firstNode);
-			this.firstNode = newNode;
-		} else {
-			NodeSequence nodeInPointer = getNode(pointer);
-
-			newNode.setNext(nodeInPointer);
-			if (nodeInPointer != null) {
-				nodeInPointer.getPrevious().setNext(newNode);
-				newNode.setPrevious(nodeInPointer.getPrevious());
-				nodeInPointer.setPrevious(newNode);
+		if (getPointer() == 1) {
+			if (this.firstNode == null) {
+				this.firstNode = newNode;
+				nodeInPointer = this.firstNode;
 			} else {
-				getNode(pointer - 1).setNext(newNode);
-				newNode.setPrevious(getNode(pointer - 1));
+				newNode.setNext(this.firstNode);
+				this.firstNode.setPrevious(newNode);
+				this.firstNode = newNode;
+				nodeInPointer = this.firstNode;
+			}
+		} else {
+			if (nodeInPointer.getNext() == null && getPointer() > this.size) {
+				newNode.setPrevious(nodeInPointer);
+				nodeInPointer.setNext(newNode);
+				nodeInPointer = newNode;
+			} else {
+				newNode.setNext(nodeInPointer);
+				newNode.setPrevious(nodeInPointer.getPrevious());
+
+				if (nodeInPointer.getPrevious() != null) {
+					nodeInPointer.getPrevious().setNext(newNode);
+					nodeInPointer.setPrevious(newNode);
+				}
+				nodeInPointer = newNode;
 			}
 		}
-
 		this.size++;
 	}
 
 	@Override
 	public void remove() {
 		if (pointer == 1) {
-			this.firstNode = this.firstNode.getNext();
 			if (this.firstNode != null) {
-				this.firstNode.setPrevious(null);
+				if (this.firstNode.getNext() != null) {
+					this.firstNode = this.firstNode.getNext();
+				}
+				if (this.size == 1) {
+					this.firstNode = null;
+					nodeInPointer = null;
+					this.size--;
+					return;
+				} else {
+					this.firstNode.setPrevious(null);
+					nodeInPointer = this.firstNode;
+					this.size--;
+				}
 			}
 		} else {
-			NodeSequence nodeToRemove = getNode(pointer);
-			if (nodeToRemove != null) {
-				nodeToRemove.getPrevious().setNext(nodeToRemove.getNext());
-				nodeToRemove.getNext().setPrevious(nodeToRemove.getPrevious());
+			if (nodeInPointer.getNext() != null) {
+				nodeInPointer.getPrevious().setNext(nodeInPointer.getNext());
+				nodeInPointer.getNext().setPrevious(nodeInPointer.getPrevious());
+				if (nodeInPointer.getNext() != null) {
+					nodeInPointer = nodeInPointer.getNext();
+					this.size--;
+					return;
+				}
+				if (nodeInPointer.getPrevious() != null) {
+					nodeInPointer = nodeInPointer.getPrevious();
+				}
+			} else {
+				nodeInPointer.getPrevious().setNext(null);
 			}
+			this.size--;
 		}
-		this.size--;
+		
 	}
 
 	@Override
 	public E getElem() {
-		NodeSequence node = getNode(pointer);
-		return node.getValue();
+		return nodeInPointer.getValue();
 	}
 
 	@Override
 	public void setElem(E elem) {
-		NodeSequence node = getNode(pointer);
-		node.setValue(elem);
+		nodeInPointer.setValue(elem);
 	}
 
 }
