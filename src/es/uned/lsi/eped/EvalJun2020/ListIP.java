@@ -112,7 +112,6 @@ public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 			}
 			this.size--;
 		}
-		
 	}
 
 	@Override

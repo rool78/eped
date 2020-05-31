@@ -46,8 +46,10 @@ public class Tarea1 {
 		lista.remove();
 		printStatus(lista);
 		
-		lista.moveTo(1);
+		lista.moveTo(3);
 		lista.setElem(823);
+		printStatus(lista);
+
 		while ( ! lista.isEmpty() ) {
 			System.out.print("Eliminando ");
 			System.out.println(lista.getElem());

@@ -19,5 +19,6 @@ public interface StackIF <E> extends SequenceIF<E>{
 	/* Elimina la cima de la pila. Modifica el tamaño de la     * 
 	 * pila.                                                    *
 	 * @Pre !isEmpty ();                                        */
-	public void pop ();            
+	public void pop ();       
+	
 }
