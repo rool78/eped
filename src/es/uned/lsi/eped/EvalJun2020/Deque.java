@@ -47,10 +47,11 @@ public class Deque<E> extends SequenceDL<E> implements DequeIF<E> {
 		if (this.size == 1) {
 			this.firstNode = null;
 			lastNode = null;
-		}
-		if (this.firstNode.getNext() != null) {
-			this.firstNode = this.firstNode.getNext();
-			this.firstNode.setPrevious(null);
+		} else {
+			if (this.firstNode.getNext() != null) {
+				this.firstNode = this.firstNode.getNext();
+				this.firstNode.setPrevious(null);
+			}
 		}
 		this.size--;
 	}
@@ -60,10 +61,11 @@ public class Deque<E> extends SequenceDL<E> implements DequeIF<E> {
 		if (this.size == 1) {
 			this.firstNode = null;
 			lastNode = null;
-		}
-		if (lastNode.getPrevious() != null) {
-			lastNode = lastNode.getPrevious();
-			lastNode.setNext(null);
+		} else {
+			if (lastNode.getPrevious() != null) {
+				lastNode = lastNode.getPrevious();
+				lastNode.setNext(null);
+			}
 		}
 		this.size--;
 	}
