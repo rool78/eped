@@ -6,20 +6,20 @@ import es.uned.lsi.eped.DataStructures.IteratorIF;
 public abstract class SequenceDL<E> extends Collection<E> implements SequenceDLIF<E> {
 	
 	/* Clase privada que implementa la estructura de nodos de la secuencia */
-	protected class NodeSequence {
+	protected class NodeSequenceDL {
 
 		private E value;
-		private NodeSequence next;
-		private NodeSequence previous;
+		private NodeSequenceDL next;
+		private NodeSequenceDL previous;
 		
-		NodeSequence(){
+		NodeSequenceDL(){
 			this.value = null;
 			this.next = null;
 			this.previous = null;
 			
 		}
 		
-		NodeSequence(E e){
+		NodeSequenceDL(E e){
 			this.value = e;
 			this.next = null;
 			this.previous = null;
@@ -33,19 +33,19 @@ public abstract class SequenceDL<E> extends Collection<E> implements SequenceDLI
 			this.value = e;
 		}
 		
-		public NodeSequence getNext(){
+		public NodeSequenceDL getNext(){
 			return this.next;
 		}
 		
-		public void setNext(NodeSequence n){
+		public void setNext(NodeSequenceDL n){
 			this.next = n;
 		}
 
-		public NodeSequence getPrevious() {
+		public NodeSequenceDL getPrevious() {
 			return previous;
 		}
 
-		public void setPrevious(NodeSequence previous) {
+		public void setPrevious(NodeSequenceDL previous) {
 			this.previous = previous;
 		}
 		
@@ -54,7 +54,7 @@ public abstract class SequenceDL<E> extends Collection<E> implements SequenceDLI
 	/* Clase privada que implementa un iterador para la secuencia */
 	private class SequenceIterator implements IteratorIF<E> {
 		
-		private NodeSequence currentNode;
+		private NodeSequenceDL currentNode;
 		
 		SequenceIterator(){
 			this.currentNode = firstNode;
@@ -76,10 +76,10 @@ public abstract class SequenceDL<E> extends Collection<E> implements SequenceDLI
 
 	}
 	
-	protected NodeSequence firstNode;
+	protected NodeSequenceDL firstNode;
 	
 	/* Devuelve el primer nodo de la secuencia */
-	private NodeSequence getFirstNode() {
+	private NodeSequenceDL getFirstNode() {
 		return this.firstNode;
 	}
 
@@ -94,12 +94,12 @@ public abstract class SequenceDL<E> extends Collection<E> implements SequenceDLI
 		this();
 		if ( ! s.isEmpty() ) {
 			this.size = s.size();
-			NodeSequence nodeS = s.getFirstNode();
-			NodeSequence pNode = new NodeSequence(nodeS.getValue());
+			NodeSequenceDL nodeS = s.getFirstNode();
+			NodeSequenceDL pNode = new NodeSequenceDL(nodeS.getValue());
 			this.firstNode = pNode;
 			while ( nodeS.getNext() != null ) {
 				nodeS = nodeS.getNext();
-				NodeSequence newNode = new NodeSequence(nodeS.getValue());
+				NodeSequenceDL newNode = new NodeSequenceDL(nodeS.getValue());
 				pNode.setNext(newNode);
 				pNode = newNode;
 			}
@@ -118,7 +118,7 @@ public abstract class SequenceDL<E> extends Collection<E> implements SequenceDLI
 
 	/* Comprueba si la secuencia contiene el elemento */
 	public boolean contains(E e) {
-		NodeSequence node = this.firstNode;
+		NodeSequenceDL node = this.firstNode;
 		while(node!=null){
 			E next = node.getValue();
 			if(next.equals(e)){
@@ -136,8 +136,8 @@ public abstract class SequenceDL<E> extends Collection<E> implements SequenceDLI
     
 	/* Devuelve el nodo i-ésimo de la secuencia        *
 	 * @Pre: 1 <= i <= size()                          */
-	protected NodeSequence getNode(int i){
-		NodeSequence node = this.firstNode;
+	protected NodeSequenceDL getNode(int i){
+		NodeSequenceDL node = this.firstNode;
 		for ( int aux = 1 ; aux < i ; aux++ ) {
 			node = node.getNext();
 		}

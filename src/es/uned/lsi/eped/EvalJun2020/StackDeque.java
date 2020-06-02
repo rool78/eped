@@ -38,17 +38,17 @@ public class StackDeque<E> implements StackIF<E> {
 
 	@Override
 	public E getTop() {
-		return deque.getBack();
+		return deque.getFront();
 	}
 
 	@Override
 	public void push(E elem) {
-		deque.insertBack(elem);
+		deque.insertFront(elem);
 	}
 
 	@Override
 	public void pop() {
-		deque.removeBack();
+		deque.removeFront();
 	}
 
 }

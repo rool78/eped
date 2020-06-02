@@ -1,12 +1,8 @@
 package es.uned.lsi.eped.EvalJun2020;
 
 import es.uned.lsi.eped.DataStructures.IteratorIF;
-import es.uned.lsi.eped.DataStructures.Stack;
-import es.uned.lsi.eped.DataStructures.StackIF;
 
 public class Pruebas {
-
-	public static Integer myE;
 
 	public static void main(String args[]) {
 		DequeIF<Comp> deq = new Deque<>();
@@ -14,54 +10,13 @@ public class Pruebas {
 		deq.insertFront(new Comp(4));
 		deq.insertFront(new Comp(3));
 		deq.insertFront(new Comp(5));
+		deq.insertFront(new Comp(78));
+		deq.insertBack(new Comp(69));
 
-		// printStatus(deq);
-		// H(deq);
-		// printStatus(deq);
+		 printStatus(deq);
+		 H(deq);
+		 printStatus(deq);
 
-		StackIF<Integer> s = new Stack<>();
-
-		s.push(1);
-		s.push(2);
-		s.push(3);
-
-		pushBottom(s, 69);
-		popBottom(s);
-		popBottom(s);
-
-
-		IteratorIF<Integer> it = s.iterator();
-
-		while (it.hasNext()) {
-			System.out.println(it.getNext());
-		}
-
-		System.out.println(s.getTop());
-
-	}
-
-	public static void pushBottom(StackIF<Integer> stack, Integer elem) {
-		if (stack.size() == 0) {
-			stack.push(elem);
-			return;
-		}
-		Integer e = stack.getTop();
-		stack.pop();
-		pushBottom(stack, elem);
-		stack.push(e);
-	}
-
-	public static void popBottom(StackIF<Integer> stack) {
-		if (stack.size() >= 1) {
-			if (stack.size() == 1) {
-				stack.pop();
-				return;
-			}
-			Integer e = stack.getTop();
-			stack.pop();
-			popBottom(stack);
-			stack.push(e);
-		}
 	}
 
 	public static <E extends Comparable<E>> DequeIF<E> H(DequeIF<E> d) {
@@ -151,9 +106,9 @@ public class Pruebas {
 		System.out.println(param.size());
 		if (!param.isEmpty()) {
 			System.out.print("Primer elemento: ");
-			System.out.println(param.getFront());
+			System.out.println(param.getFront().i);
 			System.out.print("Último elemento: ");
-			System.out.println(param.getBack());
+			System.out.println(param.getBack().i);
 		}
 		System.out.print("Iterador: ");
 		IteratorIF<Comp> it = param.iterator();

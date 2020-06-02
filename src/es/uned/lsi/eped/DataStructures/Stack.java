@@ -35,28 +35,4 @@ public class Stack<E> extends Sequence<E> implements StackIF<E> {
 		this.size--;
 	}
 
-	@Override
-	public void pushBottom(E elem) {
-		if (this.size() == 0) {
-			push(elem);
-			return;
-		}
-		E e = getTop();
-		pop();
-		pushBottom(elem);
-		push(e);
-	}
-
-	@Override
-	public void popBottom() {
-		if (this.size() == 1) {
-			pop();
-			return;
-		}
-		E e = getTop();
-		pop();
-		popBottom();
-		push(e);
-	}
-
 }

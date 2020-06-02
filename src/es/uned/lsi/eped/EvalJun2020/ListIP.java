@@ -2,7 +2,7 @@ package es.uned.lsi.eped.EvalJun2020;
 
 public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 
-	private NodeSequence nodeInPointer;
+	private NodeSequenceDL nodeInPointer;
 	private int pointer;
 
 	public ListIP() {
@@ -47,7 +47,7 @@ public class ListIP<E> extends SequenceDL<E> implements ListIPIF<E> {
 
 	@Override
 	public void insert(E elem) {
-		NodeSequence newNode = new NodeSequence(elem);
+		NodeSequenceDL newNode = new NodeSequenceDL(elem);
 		if (getPointer() == 1) {
 			if (this.firstNode == null) {
 				this.firstNode = newNode;

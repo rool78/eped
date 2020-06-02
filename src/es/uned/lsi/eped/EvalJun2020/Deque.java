@@ -2,7 +2,7 @@ package es.uned.lsi.eped.EvalJun2020;
 
 public class Deque<E> extends SequenceDL<E> implements DequeIF<E> {
 
-	private NodeSequence lastNode;
+	private NodeSequenceDL lastNode;
 
 	@Override
 	public E getFront() {
@@ -16,7 +16,7 @@ public class Deque<E> extends SequenceDL<E> implements DequeIF<E> {
 
 	@Override
 	public void insertFront(E e) {
-		NodeSequence newNode = new NodeSequence(e);
+		NodeSequenceDL newNode = new NodeSequenceDL(e);
 		if (isEmpty()) {
 			this.firstNode = newNode;
 			this.lastNode = newNode;
@@ -30,7 +30,7 @@ public class Deque<E> extends SequenceDL<E> implements DequeIF<E> {
 
 	@Override
 	public void insertBack(E e) {
-		NodeSequence newNode = new NodeSequence(e);
+		NodeSequenceDL newNode = new NodeSequenceDL(e);
 		if (isEmpty()) {
 			this.firstNode = newNode;
 			this.lastNode = newNode;
@@ -69,5 +69,5 @@ public class Deque<E> extends SequenceDL<E> implements DequeIF<E> {
 		}
 		this.size--;
 	}
-
+	
 }
