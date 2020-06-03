@@ -46,7 +46,7 @@ public class Tarea1 {
 		lista.remove();
 		printStatus(lista);
 		
-		lista.moveTo(3);
+		lista.moveTo(1);
 		lista.setElem(823);
 		printStatus(lista);
 
